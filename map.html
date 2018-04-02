@@ -19,15 +19,28 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbGlwcHNjaG1pdHQiLCJhIjoiYzBlNTRlNGFkYTUzY
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v9',
-    center: [-96, 37.8],
-    zoom: 3
+    center: [-73.99234,40.73699],
+    zoom: 13,
+    hash: true
 });
 
 map.on('load', function () {
 
-    map.addSource('some id', {
+    map.addSource('311-calls', {
         type: 'geojson',
-        data: 'http://philippschmitt.com/downloads/311-calls.geojson'
+        data: 'https://raw.githubusercontent.com/philippschmitt/Dorkshop-Web-Maps/master/311-calls.geojson'
+    });
+
+    map.addLayer({
+        'id': '311-calls',
+        'type': 'circle',
+        'source': '311-calls',
+
+        'paint': {
+            'circle-color': '#00ffff',
+            'circle-opacity': .5,
+            'circle-radius': 3
+        }
     });
 
     // map.addLayer({
