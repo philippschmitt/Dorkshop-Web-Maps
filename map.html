@@ -11,12 +11,16 @@
 </head>
 <body>
 
+<!-- our map will live in here -->
 <div id='map'></div>
 
 <script>
 // mapboxgl.accessToken = '<your access token here>';
 // get it on the Mapbox website
 mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbGlwcHNjaG1pdHQiLCJhIjoiYzBlNTRlNGFkYTUzY2YzNmNkMmY2NTM2MmI4NzA3NjUifQ.o_zQtL3f4c5Zc9Z8H77jjQ';
+
+// initialize map
+// there are lots of settings. Check the documentation!
 var map = new mapboxgl.Map({
     container: 'map',
     // your mapstyle goes here:
@@ -26,9 +30,11 @@ var map = new mapboxgl.Map({
     hash: true
 });
 
-
+// what happens once the map is loaded
+// similar to jQuery's $(document).ready()
 map.on('load', function () {
 
+    // add a new layer
 
     // map.addLayer({
     //     'id': '311-calls',
@@ -77,7 +83,7 @@ map.on('load', function () {
             .addTo(map);
     });
 
-    // Change the cursor to a pointer when the mouse is over the places layer.
+    // Change the cursor to a pointer when the mouse is over the 311-calls layer.
     map.on('mouseenter', '311-calls', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
@@ -89,7 +95,7 @@ map.on('load', function () {
     */
 
     /*
-    // ADD 3D BUILDINGS
+    // Add 3D buildings
     map.addLayer({
         'id': '3d-buildings',
         'source': 'composite',
