@@ -18,7 +18,8 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbGlwcHNjaG1pdHQiLCJhIjoiYzBlNTRlNGFkYTUzY2YzNmNkMmY2NTM2MmI4NzA3NjUifQ.o_zQtL3f4c5Zc9Z8H77jjQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
+    // style: 'mapbox://styles/mapbox/light-v9',
+    style: 'mapbox://styles/philippschmitt/cjflxyps90e4l2sqpt8xgagmq',
     center: [-73.99234,40.73699],
     zoom: 13,
     hash: true
@@ -37,50 +38,26 @@ map.on('load', function () {
         'source': '311-calls',
 
         'paint': {
-            'circle-color': '#00ffff',
-            'circle-opacity': .5,
-            'circle-radius': 3
-        }
+            // 'circle-color': '#00ffff',
+            'circle-opacity': .9,
+            'circle-radius': 3,
+            'circle-color': [
+                'match',
+                ['get', 'descriptor'],
+                'Pothole', '#ff0000',
+                'Air', '#00ff00',
+                'Noise', '#0000ff',
+                /* other */ '#ccc'
+            ]
+            /*
+            'circle-radius': {
+                'base': 1.75,
+                'stops': [[12, 2], [22, 180]]
+            }
+            */
+        }  
     });
 
-    // map.addLayer({
-    //     "id": "points",
-    //     "type": "symbol",
-    //     "source": {
-    //         "type": "geojson",
-    //         "data": {
-    //             "type": "FeatureCollection",
-    //             "features": [{
-    //                 "type": "Feature",
-    //                 "geometry": {
-    //                     "type": "Point",
-    //                     "coordinates": [-77.03238901390978, 38.913188059745586]
-    //                 },
-    //                 "properties": {
-    //                     "title": "Mapbox DC",
-    //                     "icon": "monument"
-    //                 }
-    //             }, {
-    //                 "type": "Feature",
-    //                 "geometry": {
-    //                     "type": "Point",
-    //                     "coordinates": [-122.414, 37.776]
-    //                 },
-    //                 "properties": {
-    //                     "title": "Mapbox SF",
-    //                     "icon": "harbor"
-    //                 }
-    //             }]
-    //         }
-    //     },
-    //     "layout": {
-    //         "icon-image": "{icon}-15",
-    //         "text-field": "{title}",
-    //         "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-    //         "text-offset": [0, 0.6],
-    //         "text-anchor": "top"
-    //     }
-    // });
 });
 </script>
 
