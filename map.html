@@ -15,40 +15,40 @@
 
 <script>
 // mapboxgl.accessToken = '<your access token here>';
+// get it on the Mapbox website
 mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbGlwcHNjaG1pdHQiLCJhIjoiYzBlNTRlNGFkYTUzY2YzNmNkMmY2NTM2MmI4NzA3NjUifQ.o_zQtL3f4c5Zc9Z8H77jjQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    // style: 'mapbox://styles/mapbox/light-v9',
-    style: 'mapbox://styles/philippschmitt/cjflxyps90e4l2sqpt8xgagmq',
+    // your mapstyle goes here:
+    style: 'mapbox://styles/philippschmitt/cjfn8ymyl1qhu2smvlth1dqxv',
     center: [-73.99234,40.73699],
     zoom: 13,
     hash: true
 });
 
+
 map.on('load', function () {
 
-    map.addSource('311-calls', {
-        type: 'geojson',
-        data: 'https://raw.githubusercontent.com/philippschmitt/Dorkshop-Web-Maps/master/311-calls.geojson'
-    });
-
+    
     map.addLayer({
         'id': '311-calls',
         'type': 'circle',
-        'source': '311-calls',
-
+        'source': {
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/philippschmitt/Dorkshop-Web-Maps/master/311-calls.geojson'
+        },
         'paint': {
-            // 'circle-color': '#00ffff',
-            'circle-opacity': .9,
+            'circle-opacity': .5,
             'circle-radius': 3,
+            'circle-color': '#00ffff' /*,
             'circle-color': [
                 'match',
                 ['get', 'descriptor'],
                 'Pothole', '#ff0000',
                 'Air', '#00ff00',
                 'Noise', '#0000ff',
-                /* other */ '#ccc'
-            ]
+                '#FFAAFF'
+            ]*/
             /*
             'circle-radius': {
                 'base': 1.75,
@@ -57,6 +57,38 @@ map.on('load', function () {
             */
         }  
     });
+    
+
+    /*
+    // When a click event occurs on a feature in the places layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+    map.on('click', '311-calls', function (e) {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.descriptor + '<br/>' + e.features[0].properties.created_da;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', '311-calls', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', '311-calls', function () {
+        map.getCanvas().style.cursor = '';
+    });
+    */
 
 });
 </script>
