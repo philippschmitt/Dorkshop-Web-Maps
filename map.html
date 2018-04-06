@@ -29,34 +29,32 @@ var map = new mapboxgl.Map({
 
 map.on('load', function () {
 
-    
-    map.addLayer({
-        'id': '311-calls',
-        'type': 'circle',
-        'source': {
-            type: 'geojson',
-            data: 'https://raw.githubusercontent.com/philippschmitt/Dorkshop-Web-Maps/master/311-calls.geojson'
-        },
-        'paint': {
-            'circle-opacity': .5,
-            'circle-radius': 3,
-            'circle-color': '#00ffff' /*,
-            'circle-color': [
-                'match',
-                ['get', 'descriptor'],
-                'Pothole', '#ff0000',
-                'Air', '#00ff00',
-                'Noise', '#0000ff',
-                '#FFAAFF'
-            ]*/
-            /*
-            'circle-radius': {
-                'base': 1.75,
-                'stops': [[12, 2], [22, 180]]
-            }
-            */
-        }  
-    });
+
+    // map.addLayer({
+    //     'id': '311-calls',
+    //     'type': 'circle',
+    //     'source': {
+    //         type: 'geojson',
+    //         data: 'https://raw.githubusercontent.com/philippschmitt/Dorkshop-Web-Maps/master/311-calls.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-opacity': .5,
+    //         'circle-radius': 3,
+    //         'circle-color': '#00ffff'/*,
+    //         'circle-color': [
+    //             'match',
+    //             ['get', 'descriptor'],
+    //             'Pothole', '#ff0000',
+    //             'Air', '#00ff00',
+    //             'Noise', '#0000ff',
+    //             '#FFAAFF'
+    //         ]
+    //         'circle-radius': {
+    //             'base': 1.75,
+    //             'stops': [[12, 2], [22, 180]]
+    //         }*/
+    //     }  
+    // });
     
 
     /*
@@ -87,6 +85,35 @@ map.on('load', function () {
     // Change it back to a pointer when it leaves.
     map.on('mouseleave', '311-calls', function () {
         map.getCanvas().style.cursor = '';
+    });
+    */
+
+    /*
+    // ADD 3D BUILDINGS
+    map.addLayer({
+        'id': '3d-buildings',
+        'source': 'composite',
+        'source-layer': 'building',
+        'filter': ['==', 'extrude', 'true'],
+        'type': 'fill-extrusion',
+        'minzoom': 15,
+        'paint': {
+            'fill-extrusion-color': '#aaa',
+
+            // use an 'interpolate' expression to add a smooth transition effect to the
+            // buildings as the user zooms in
+            'fill-extrusion-height': [
+                "interpolate", ["linear"], ["zoom"],
+                15, 0,
+                15.05, ["get", "height"]
+            ],
+            'fill-extrusion-base': [
+                "interpolate", ["linear"], ["zoom"],
+                15, 0,
+                15.05, ["get", "min_height"]
+            ],
+            'fill-extrusion-opacity': .6
+        }
     });
     */
 
